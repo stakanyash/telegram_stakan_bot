@@ -1,7 +1,7 @@
 import logging
-from telegram import Update, ChatPermissions
+from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
-from datetime import datetime, timedelta
+from datetime import datetime
 import json
 
 with open('config.json', 'r') as file:
@@ -98,7 +98,7 @@ async def forward_message(update: Update, context) -> None:
         message_id = update.channel_post.message_id
         logger.info(f"Forwarding message from {update.channel_post.chat.id} to {DESTINATION_CHAT_ID} with message ID {message_id}")
         try:
-            await context.bot.copy_message(chat_id=DESTINATION_CHAT_ID, from_chat_id=update.channel_post.chat.id, message_id=message_id)
+            await context.bot.forward_message(chat_id=DESTINATION_CHAT_ID, from_chat_id=update.channel_post.chat.id, message_id=message_id)
         except Exception as e:
             logger.error(f"Failed to forward message: {e}")
 
