@@ -2,15 +2,15 @@ import logging
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 from datetime import datetime
-import json
+from dotenv import load_dotenv
+import os
 
-with open('config.json', 'r') as file:
-    config = json.load(file)
+load_dotenv()
 
-TOKEN = config["TOKEN"]
-SOURCE_CHAT_ID = config["SOURCE_CHAT_ID"]
-DESTINATION_CHAT_ID = config["DESTINATION_CHAT_ID"]
-ALLOWED_USER_IDS = config["ALLOWED_USER_IDS"]
+TOKEN = os.getenv("TOKEN")
+SOURCE_CHAT_ID = os.getenv("SOURCE_CHAT_ID")
+DESTINATION_CHAT_ID = os.getenv("DESTINATION_CHAT_ID")
+ALLOWED_USER_IDS = os.getenv("ALLOWED_USER_IDS").split(',')
 
 # Log creation
 log_filename = f"bot_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log"
